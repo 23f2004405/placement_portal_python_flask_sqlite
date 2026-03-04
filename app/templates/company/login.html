@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-sm w-100" style="max-width: 420px;">
+    <div class="card-body p-4">
+
+      <h4 class="text-center mb-4">Company Login</h4>
+
+      <form action="{{ url_for('company.login_company') }}" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+          {{ form.username.label(class="form-label") }}
+          {{ form.username(class="form-control") }}
+          {% for error in form.username.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="mb-4">
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control") }}
+          {% for error in form.password.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="d-grid">
+          {{ form.submit(class="btn btn-primary") }}
+        </div>
+
+      </form>
+
+      <hr class="my-4">
+
+      <div class="text-center">
+        <a href="{{ url_for('main.landing_page') }}" class="btn btn-outline-secondary btn-sm">
+          ← Back to Home
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

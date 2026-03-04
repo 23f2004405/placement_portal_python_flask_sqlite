@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'student/navbar.html' %}
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Welcome,{{student.name}}</h1>
+  </div>
+
+<h5>Username:{{student.username}}</h5>
+<p>Roll No : {{student.student.roll_number}}</p>
+<p>CGPA : {{student.student.cgpa}}</p>
+<p>Department:{{student.student.department}}</p>
+<p>Graduation Year:{{student.student.graduation_year}}</p>
+<p>
+{% if current_user.student.resume %}
+    <a href="{{ url_for('static', filename=current_user.student.resume) }}" 
+       target="_blank">
+       View Resume
+    </a>
+{% endif %}
+</p>
+</div>
+{% endblock %}

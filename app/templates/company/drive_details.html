@@ -1,0 +1,34 @@
+{% extends 'index.html' %} {% block content %}
+{% include 'company/navbar.html' %} 
+<div class="container mt-5">
+<h1>{{drive.job_title}}</h1>
+<p>Description-{{drive.job_description}}</p>
+<p>Eligibility-{{drive.eligibility_criteria}}</p>
+<p>Deadline-{{drive.application_deadline}}</p>
+<p>Created at-{{drive.created_at}}</p>
+<p>No of Applications-{{number_of_applications}}</p>
+<p> Status-{{drive.status.value}}</p>
+
+<div>
+  {% if drive.status.value != 'closed' %}
+  <form
+    method="post"
+    action="{{ url_for('company.close_drive', drive_id=drive.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Close Drive</button>
+  </form>
+  {% endif %}
+  <form
+    method="post"
+    action="{{ url_for('company.remove_drive', drive_id=drive.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Remove Drive</button>
+  </form>
+  <a class="btn btn-success btn-sm" href="{{url_for('company.edit_drive',drive_id=drive.id)}}">Edit Drive</a>
+  <a class="btn btn-success btn-sm" href="{{url_for('company.student_applications',drive_id=drive.id)}}"> View Applications </a>
+</div>
+</div>
+
+{% endblock %}

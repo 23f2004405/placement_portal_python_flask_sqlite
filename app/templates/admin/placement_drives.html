@@ -1,0 +1,61 @@
+{%extends 'index.html'%} {% block content %} 
+{% include 'admin/admin_navbar.html' %} 
+
+<form
+  method="get"
+  action="{{ url_for('admin.view_placement_drives') }}"
+  class="row g-2"
+>
+  <div class="col-md-3">
+    <input
+      type="text"
+      name="company_name"
+      class="form-control"
+      placeholder="Company name"
+    />
+  </div>
+
+  <div class="col-md-3">
+    <input
+      type="text"
+      name="company_username"
+      class="form-control"
+      placeholder="Company username"
+    />
+  </div>
+
+  <div class="col-md-3">
+    <input
+      type="number"
+      name="drive_id"
+      class="form-control"
+      placeholder="Drive ID"
+    />
+  </div>
+
+  <div class="col-md-2">
+    <select name="status" class="form-select">
+      <option value="">All statuses</option>
+      <option value="PENDING">Pending</option>
+      <option value="APPROVED">Approved</option>
+      <option value="CLOSED">Closed</option>
+      <option value="CANCELLED">Cancelled</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <button type="submit" class="btn btn-primary w-100">Search</button>
+  </div>
+</form>
+{% for drive in placement_drives %}
+<div class="card mb-2">
+  <div class="card-body">
+    <h5>{{ drive.company.company_name }}</h5>
+    <p>Drive ID: {{ drive.id }}</p>
+    <p>Posted by: {{ drive.company.user.username }}</p>
+    <p>Status : {{drive.status.value}}</p>
+
+    <a href="{{url_for('admin.view_drive_details',drive_id=drive.id)}}">View Drive Details</a>
+  </div>
+</div>
+{% endfor %} {% endblock %}

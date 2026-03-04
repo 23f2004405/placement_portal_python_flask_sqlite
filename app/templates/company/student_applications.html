@@ -1,0 +1,54 @@
+{% extends 'index.html' %} {% block content %}
+{% include 'company/navbar.html' %} 
+<form method="get" action="{{ url_for('company.student_applications',drive_id=drive_id) }}">
+
+    <div class="mb-3">
+        <label for="status" class="form-label">Application Status</label>
+
+        <select name="status" id="status" class="form-select">
+            <option value="" {% if not selected_status %}selected{% endif %}>
+                All
+            </option>
+
+            <option value="SELECTED"
+                {% if selected_status == "SELECTED" %}selected{% endif %}>
+                Selected
+            </option>
+
+            <option value="APPLIED"
+                {% if selected_status == "APPLIED" %}selected{% endif %}>
+                Applied
+            </option>
+
+            <option value="REJECTED"
+                {% if selected_status == "REJECTED" %}selected{% endif %}>
+                Rejected
+            </option>
+
+            <option value="SHORTLISTED"
+                {% if selected_status == "SHORTLISTED" %}selected{% endif %}>
+                Shortlisted
+            </option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Filter
+    </button>
+
+</form>
+
+
+
+<div>
+  {% for application in applications %}
+  <div class="card">
+    <div class="card-body">
+    <p>Student Roll - {{application.student.roll_number}}</p>
+    <a href="{{url_for('company.view_applicant',appl_id=application.id)}} " class="btn btn-sm btn-outline-primary">View Applicant</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'student/navbar.html' %}
+<form method="get" action="{{ url_for('student.drive_history') }}">
+    
+    <label>Drive Status</label>
+    <select name="drive_status">
+        <option value="">All</option>
+        <option value="APPROVED"
+            {% if selected_drive_status == "APPROVED" %}selected{% endif %}>
+            Ongoing
+        </option>
+        <option value="CLOSED"
+            {% if selected_drive_status == "CLOSED" %}selected{% endif %}>
+            Closed
+        </option>
+    </select>
+
+    <label>Application Status</label>
+    <select name="app_status">
+        <option value="">All</option>
+        <option value="APPLIED"
+            {% if selected_app_status == "APPLIED" %}selected{% endif %}>
+            Applied
+        </option>
+        <option value="SELECTED"
+            {% if selected_app_status == "SELECTED" %}selected{% endif %}>
+            Selected
+        </option>
+        <option value="REJECTED"
+            {% if selected_app_status == "REJECTED" %}selected{% endif %}>
+            Rejected
+        </option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+<div>
+    {% for application in applications %}
+   <div style="border:1px solid #ccc; padding:10px; margin-bottom:8px;">
+    <h5>{{application.drive.job_title}}</h5>
+    <p>Application Id:  {{application.id}}</p>
+    <p>Company:{{application.drive.company.company_name}}</p>
+    <a href="{{url_for('student.view_drive_details',drive_id=application.drive_id)}}">View Drive Details</a>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}

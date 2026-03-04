@@ -1,0 +1,52 @@
+{% extends 'index.html' %} {% block content %} {% include
+'admin/admin_navbar.html' %}
+<form
+  method="get"
+  action="{{ url_for('admin.view_company') }}"
+  class="row g-2"
+>
+  <div class="col-md-3">
+    <input
+      type="text"
+      name="name"
+      class="form-control"
+      placeholder="Company name"
+    />
+  </div>
+
+  <div class="col-md-3">
+    <input
+      type="text"
+      name="username"
+      class="form-control"
+      placeholder="Username"
+    />
+  </div>
+
+  <div class="col-md-3">
+    <input
+      type="number"
+      name="company_id"
+      class="form-control"
+      placeholder="Company ID"
+    />
+  </div>
+
+  <div class="col-md-3">
+    <button type="submit" class="btn btn-primary w-100">Search</button>
+  </div>
+</form>
+{% for user in companies %}
+<div class="card mb-2">
+  <div class="card-body">
+    <h5>{{user.name}}</h5>
+    <p>Username: {{ user.username}}</p>
+    <p>Company ID :{{user.company.id}}</p>
+    <p>Status : {{user.company.approval_status.value}}</p>
+
+    <a href="{{url_for('admin.view_company_details',user_id=user.id)}}"
+      >View Company Details</a
+    >
+  </div>
+</div>
+{% endfor %} {% endblock %}

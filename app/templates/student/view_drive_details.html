@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'student/navbar.html' %}
+<div class="container mt-4">
+
+    <h3>{{drive.job_title}}</h3>
+    <h5><b>Company Name</b>:<i>{{drive.company.company_name}}</i></h5>
+    <div style="border:1px solid #ccc; padding:10px; margin-bottom:8px;">
+    <p><b>Drive Id</b>:{{drive.id}},<b>Company Id</b>:{{drive.company.id}}</p>
+    <p><b>Description</b>:{{drive.job_description}}</p>
+    <p><b>Hr </b>: {{drive.company.hr_contact}}</p>
+    <p>
+      <strong>Website:</strong>
+      {% set website = drive.company.website %}
+      <a href="{{ website if website.startswith('http') else 'https://' + website }}" target="_blank">{{ website }}</a>
+    </p>
+    <p><b>Preferred Qualifications</b>:{{drive.eligibility_criteria}}</p>
+    <p><b>Last Date to Apply</b>:{{drive.application_deadline}}</p>
+    </div>
+    {% if not application %}
+     <form
+    method="post"
+    action="{{ url_for('student.apply_for_drives', drive_id=drive.id) }}"
+    style="display: inline">
+    <button type="submit" class="btn btn-success btn-sm">Apply</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

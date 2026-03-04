@@ -1,0 +1,47 @@
+{% extends 'index.html' %} {% block content %}
+{% include 'company/navbar.html' %} 
+<div>
+  <div class="container mt-5">
+  <p>Roll Number-{{applicant.roll_number}}</p>
+  <p>Username-{{applicant.user.username}}</p>
+  <p>Name-{{applicant.user.name}}</p>
+  <p>Cgpa-{{applicant.cgpa}}</p>
+  <p>Graduation Year-{{applicant.graduation_year}}</p>
+  <p>Status - {{application.status.value}}</p>
+  <a href="{{ url_for('static', filename=applicant.resume) }}" target="_blank" class="btn btn-outline-primary btn-sm">
+    View Resume
+</a>
+
+
+  {% if application.status.value == 'applied'%}
+  <form
+    method="post"
+    action="{{ url_for('company.shortlist_applicant', appl_id=application.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Shortlist</button>
+  </form>
+  {% endif %} 
+  {% if application.status.value == 'shortlisted' or application.status.value ==
+  'applied' %}
+  <form
+    method="post"
+    action="{{ url_for('company.select_applicant', appl_id=application.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Select</button>
+  </form>
+  {% endif %} 
+  {%  if application.status.value == 'shortlisted' or application.status.value
+  == 'applied' or application.status.value == 'selected' %}
+  <form
+    method="post"
+    action="{{ url_for('company.reject_applicant', appl_id=application.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Reject</button>
+  </form>
+  {% endif %}
+</div>
+</div>
+{% endblock %}

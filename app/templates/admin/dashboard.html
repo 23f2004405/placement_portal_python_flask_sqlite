@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'admin/admin_navbar.html' %}
+
+<div class="container mt-4">
+
+  <h2 class="text-center mb-4">Admin Dashboard</h2>
+
+ 
+  <div class="row g-4">
+
+  
+    <div class="col-md-4">
+      <div class="card shadow border-0 text-center">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Total Students</h5>
+          <h2 class="fw-bold text-primary">{{ total_students }}</h2>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="col-md-4">
+      <div class="card shadow border-0 text-center">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Approved Companies</h5>
+          <h2 class="fw-bold text-success">{{ total_approved_companies }}</h2>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="col-md-4">
+      <div class="card shadow border-0 text-center">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Pending Companies</h5>
+          <h2 class="fw-bold text-warning">{{ total_pending_companies }}</h2>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4">
+      <div class="card shadow border-0 text-center">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Pending Drives</h5>
+          <h2 class="fw-bold text-warning">{{ total_pending_drives }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow border-0 text-center">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Approved Drives</h5>
+          <h2 class="fw-bold text-success">{{ total_approved_drives }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow border-0 text-center">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Closed Drives</h5>
+          <h2 class="fw-bold text-danger">{{ total_closed_drives }}</h2>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="col-md-12">
+      <div class="card shadow border-0 text-center">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Total Applications</h5>
+          <h2 class="fw-bold text-dark">{{ total_applications }}</h2>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+ 
+  <div class="mt-5">
+    <h4 class="mb-3">Quick Actions</h4>
+    <div class="d-flex flex-wrap gap-3">
+
+      <a href="{{ url_for('admin.view_placement_drives') }}"
+         class="btn btn-primary">
+        Manage Placement Drives
+      </a>
+
+      <a href="{{ url_for('admin.company_registration_applications') }}"
+         class="btn btn-warning">
+        Company Applications
+      </a>
+
+      <a href="{{ url_for('admin.view_company') }}"
+         class="btn btn-info">
+        View Companies
+      </a>
+
+      <a href="{{ url_for('admin.view_student') }}"
+         class="btn btn-success">
+        View Students
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+

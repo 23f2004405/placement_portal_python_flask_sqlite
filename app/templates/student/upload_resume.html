@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'student/navbar.html' %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.resume.label }}
+        {{ form.resume(class="form-control") }}
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+
+{% endblock %}

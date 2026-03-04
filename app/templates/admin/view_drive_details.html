@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'admin/admin_navbar.html' %}
+<div class="container col-12 ">
+<p><b>Job title: </b>{{drive.job_title}}</p>
+<p><b>Company:</b>{{ drive.company.company_name }}</p>
+<p><b>Drive ID:</b> {{ drive.id }}</p>
+<p><b>Created at:</b>{{drive.created_at}}</p>
+<p><b>Posted by: </b>{{ drive.company.user.username }}</p>
+<p><b>Status :</b> {{drive.status}}</p>
+<p><b>Job description:</b>{{drive.job_description}}</p>
+<p><b>Eligibility criteria:</b>{{drive.eligibility_criteria}}</p>
+<p><b>Application Deadline:</b>{{drive.application_deadline}}</p>
+{% if drive.status.value == 'pending' %}
+<form method="post"
+      action="{{ url_for('admin.approve_drive', drive_id=drive.id) }}"
+      style="display:inline;">
+  <button type="submit" class="btn btn-success btn-sm">
+    Approve
+  </button>
+</form>
+
+<form method="post"
+      action="{{ url_for('admin.cancel_drive', drive_id=drive.id) }}"
+      style="display:inline;">
+<button type="submit" class="btn btn-danger btn-sm">
+    Cancel
+  </button>
+</form>
+
+{% endif %}
+<a href="{{url_for('admin.view_applications',drive_id=drive.id)}}"  class="btn btn-outline-primary">View applications </a>
+</div>
+
+{% endblock %}
+ 

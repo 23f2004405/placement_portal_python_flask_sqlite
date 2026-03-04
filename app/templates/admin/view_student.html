@@ -1,0 +1,82 @@
+{% extends "index.html" %}
+{% block content %}
+{% include 'admin/admin_navbar.html' %}
+<div class="container mt-4">
+    <h2 class="mb-4">View Students</h2>
+
+    
+    <form method="GET" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <input type="text" name="name" class="form-control"
+                   placeholder="Search by Name"
+                   value="{{ request.args.get('name','') }}">
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" name="username" class="form-control"
+                   placeholder="Search by Username"
+                   value="{{ request.args.get('username','') }}">
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" name="roll_number" class="form-control"
+                   placeholder="Search by Roll Number"
+                   value="{{ request.args.get('roll_number','') }}">
+        </div>
+
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100">
+                Search
+            </button>
+        </div>
+    </form>
+
+    
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Roll Number</th>
+                <th>Department</th>
+                <th>CGPA</th>
+                <th>Graduation Year</th>
+                <th>Blacklisted</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in students %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.student.roll_number }}</td>
+                <td>{{ user.student.department }}</td>
+                <td>{{ user.student.cgpa }}</td>
+                <td>{{ user.student.graduation_year }}</td>
+                <td>
+                    {% if user.is_blacklisted %}
+                        <span class="badge bg-danger">Yes</span>
+                    {% else %}
+                        <span class="badge bg-success">No</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('admin.view_student_details', user_id=user.id) }}"
+                       class="btn btn-sm btn-info">
+                        View Details
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8" class="text-center">
+                    No students found
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

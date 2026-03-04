@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'student/navbar.html' %}
+<div>
+    {% for drive in current_drives %}
+    <div style="border:1px solid #ccc; padding:10px; margin-bottom:8px;">
+    <h1>{{drive.job_title}}</h1>
+    <p>Drive Id:{{drive.id}},Company Id:{{drive.company.id}}</p>
+    <p>{{drive.company.company_name}}</p>
+    <a href="{{url_for('student.view_drive_details',drive_id=drive.id)}}">View Drive Details</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

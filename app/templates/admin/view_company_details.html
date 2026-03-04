@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block content %} 
+{% include 'admin/admin_navbar.html' %}
+<a href="{{url_for('admin.view_company')}}">Go Back</a>
+<h5>{{user.name}}</h5>
+<p>Username: {{ user.username}}</p>
+<p>Company ID :{{user.company.id}}</p>
+<p>Status : {{user.company.approval_status.value}}</p>
+<p>Contact:{{user.company.hr_contact}} </p>
+<p>Website:
+  {% set website = user.company.website %}
+<a href="{{ website if website.startswith('http') else 'https://' + website }}"
+   target="_blank">
+  {{ website }}
+</a></p>
+{% if user.is_blacklisted == True %}
+<form
+    method="post"
+    action="{{ url_for('admin.remove_blacklist', user_id=user.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Remove Blacklist</button>
+  </form>
+
+{% endif %}
+
+
+{% if user.is_blacklisted == False %}
+  <form
+    method="post"
+    action="{{ url_for('admin.blacklist_user', user_id=user.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Blacklist</button>
+  </form>
+{% endif %}
+{% if user.company.approval_status.value == 'rejected' %}
+<form
+    method="post"
+    action="{{ url_for('admin.approve_company_registration', user_id=user.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-success btn-sm">Approve Company</button>
+  </form>
+
+{% endif %}
+{% endblock %}

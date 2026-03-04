@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+ {% block content %} 
+ {% include 'company/navbar.html' %} 
+ <h2>Placement Drives</h2>
+
+<form method="get" action="{{ url_for('company.company_placement_drives') }}">
+  <label>Status:</label>
+  <select name="status">
+    <option value="">All</option>
+    <option value="APPROVED" {% if selected_status=='APPROVED' %}selected{% endif %}>Ongoing</option>
+    <option value="PENDING" {% if selected_status=='PENDING' %}selected{% endif %}>Pending</option>
+    <option value="CLOSED" {% if selected_status=='CLOSED' %}selected{% endif %}>Closed</option>
+  </select>
+
+  <label>Drive ID:</label>
+  <input
+    type="number"
+    name="drive_id"
+    placeholder="Enter drive ID"
+    value="{{ drive_id or '' }}"
+  >
+
+  <button type="submit">Filter</button>
+  <a href="{{ url_for('company.company_placement_drives') }}">Reset</a>
+</form>
+
+<hr>
+{% if drives %}
+  {% for drive in drives %}
+    <div style="border:1px solid #ccc; padding:10px; margin-bottom:8px;">
+      <p><b>ID:</b> {{ drive.id }}</p>
+      <p><b>Title:</b> {{ drive.job_title }}</p>
+      <p><b>Status:</b> {{ drive.status.value }}</p>
+      <p><b>Deadline:</b> {{ drive.application_deadline }}</p>
+      <a href="{{url_for('company.drive_details',drive_id=drive.id)}}">View Details</a>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No placement drives found.</p>
+{% endif %}
+
+
+ {% endblock %}

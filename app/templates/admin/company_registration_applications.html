@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block content %}
+{% include 'admin/admin_navbar.html' %}
+<div class="container mt-4">
+    {% for appl in registration_applications %}
+    <div class="card mb-2">
+       <div class="card-body">
+       <p><b>Username-</b> {{appl.username}}</p>
+       <p><b>Name</b> -  {{appl.name}}</p>
+       <a href="{{url_for('admin.view_registration_details',user_id=appl.id)}}" class="btn btn-outline-secondary btn-sm">View Details</a>
+       </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
