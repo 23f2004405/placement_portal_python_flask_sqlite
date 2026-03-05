@@ -178,6 +178,14 @@ def upload_resume():
         file = form.resume.data
         filename = secure_filename(file.filename)
 
+        student = current_user.student
+        
+        if student.resume:
+            old_path = os.path.join(current_app.root_path, 'static', student.resume)
+            if os.path.exists(old_path):
+                os.remove(old_path)
+
+
         unique_name = f"{uuid.uuid4()}_{filename}"
 
         filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], unique_name)
@@ -189,7 +197,7 @@ def upload_resume():
 
         db.session.commit()
 
-        flash("Resume uploaded successfully!", "success")
+        flash("Resume uploaded successfully!")
         return redirect(url_for('student.student_dashboard'))
 
     return render_template("student/upload_resume.html", form=form)

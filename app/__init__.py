@@ -9,7 +9,7 @@ login = LoginManager()
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'TOUCHGRASS'
+    app.config['SECRET_KEY'] = 'gooutandtouchgrass'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     app.config['SESSION_PERMANENT'] = False
     app.config['MAX_CONTENT_LENGTH'] = 500 * 1024

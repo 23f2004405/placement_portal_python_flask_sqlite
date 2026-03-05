@@ -10,5 +10,10 @@
     <a href="{{url_for('student.view_drive_details',drive_id=drive.id)}}">View Drive Details</a>
     </div>
     {% endfor %}
+    
+    {%if not current_drives%}
+    <p>No drives to apply for.</p>
+    {%endif%}
+
 </div>
 {% endblock %}
